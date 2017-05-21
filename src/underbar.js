@@ -317,21 +317,27 @@
         storageObj[arg] = func.apply(this, arguments); // <---- apply
       }
       return storageObj[arg];
-    }
+    };
   };
 
   // Delays a function for the given number of milliseconds, and then calls
   // it with the arguments supplied.
   //
   // The arguments for the original function are passed after the wait
+  //                                  0            1     2    3
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
-    
+    var args = Array.from(arguments);
+    args = args.slice(2);
+    setTimeout(
+      function() {
+        func.apply(this, args);
+      }, wait);
   };
 
 
-  /**
+/**
    * ADVANCED COLLECTION OPERATIONS
    * ==============================
    */
