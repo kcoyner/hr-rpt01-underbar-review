@@ -350,7 +350,7 @@
   _.shuffle = function(array) {
     var newArr = array.slice();
     var output = [];
-    _.each(array, function(value, index){
+    _.each(array, function(value, index) {
       var randIdx = Math.floor(Math.random() * newArr.length);
       output.push(newArr[randIdx]);
       newArr.splice(randIdx, 1);
@@ -370,6 +370,13 @@
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
   _.invoke = function(collection, functionOrKey, args) {
+    return _.map(collection, function(value) {
+      if (functionOrKey instanceof Function) {
+        return functionOrKey.apply(value, args);
+      } else {
+        return value[functionOrKey](args);
+      }
+    });
   };
 
   // Sort the object's values by a criterion produced by an iterator.
